@@ -1,0 +1,106 @@
+services:
+  db:
+    image: postgres:15
+    container_name: moneyverse_postgres
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: moneyverse_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - trading-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: moneyverse_backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --log-level error
+    volumes:
+      - .:/app
+      - ./.env:/app/.env
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: moneyverse_db
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA: public
+      POSTGRES_URL: postgresql+asyncpg://postgres:postgres@db:5432/moneyverse_db
+      TWELVEDATA_API_KEY: 6551ab0a0d924caa87c0aba7bea23b99
+      SECRET_KEY: a46a94ee45cd31fb2a06cec30acaef15ef10463511902d4cf87964d15b55c610
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      DEBUG: "true"
+      CORS_ORIGINS: "*"
+      CORS_METHODS: GET,POST,PUT,DELETE,OPTIONS
+      CORS_HEADERS: "*"
+      MOCK_NUM_CANDLES: 100
+      PYTHONWARNINGS: ignore
+      LOG_LEVEL: ERROR
+    env_file:
+      - .env
+    networks:
+      - trading-network
+    depends_on:
+      db:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+
+  mongo:
+    image: mongo:6
+    container_name: moneyverse_mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - trading-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: 
+      context: ./frontend/streamlit
+      dockerfile: Dockerfile
+    container_name: moneyverse_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      API_BASE_URL: http://backend:8000/api/v1
+      WS_BASE_URL: ws://backend:8000
+    volumes:
+      - shared_data:/shared_data
+    networks:
+      - trading-network
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  mongo_data:
+  shared_data:
+  
+networks:
+  trading-network:
+    name: moneyverse-trading-network
+    driver: bridge
+  

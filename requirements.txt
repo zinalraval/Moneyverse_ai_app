@@ -1,0 +1,94 @@
+# FastAPI and Core Dependencies
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pydantic==2.6.1
+pydantic-settings==2.1.0
+email-validator==2.1.0.post1
+python-dotenv==1.0.1
+starlette==0.36.3
+typing-extensions==4.9.0
+starlette-csrf==3.0.0
+websockets==12.0
+bcrypt<4.0.0
+
+# Database Dependencies
+sqlalchemy==2.0.25
+asyncpg==0.29.0
+alembic==1.13.1
+motor>=3.1,<3.4
+psycopg2-binary==2.9.9
+aiosqlite==0.19.0
+
+# Market Data Dependencies
+yfinance==0.2.33
+aiohttp==3.9.3
+pandas==2.2.0
+tenacity==8.2.3
+cachetools==5.3.2
+ccxt==4.2.15
+ta==0.11.0
+numpy==1.26.3
+requests==2.31.0
+
+# WebSocket and Real-time
+websockets==12.0
+websocket-client==1.7.0
+
+# Rate Limiting
+slowapi==0.1.8
+limits==3.7.0
+
+# Monitoring and Metrics
+prometheus-client==0.19.0
+
+# Testing Dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+pytest-env==1.1.3
+pytest-xdist==3.5.0
+httpx==0.25.1
+
+# Development Tools
+black==24.1.1
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0
+
+# Security Dependencies
+cryptography==42.0.2
+
+# CORS and Middleware
+starlette-context==0.3.6
+
+# Logging and Error Handling
+structlog==24.1.0
+python-json-logger==2.0.7
+
+# API Documentation
+openapi-schema-pydantic==1.2.4
+
+# Additional Dependencies
+defusedxml
+python-binance
+Pillow
+
+# AI and Image Processing
+httpx==0.25.1
+Pillow==10.2.0
+
+# Enhanced AI Features
+scikit-learn==1.4.0
+scipy==1.12.0
+
+pymongo<4.6
+
+sentry-sdk
+
+
+
+

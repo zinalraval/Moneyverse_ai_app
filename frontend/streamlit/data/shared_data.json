@@ -1,0 +1,22 @@
+{
+    "connected": true,
+    "last_error": null,
+    "reconnect_attempts": 0,
+    "last_message_timestamp": null,
+    "total_messages_received": 0,
+    "signals": [],
+    "market_data": {},
+    "market_status": {},
+    "connection_history": [
+        {
+            "timestamp": "2025-06-16T16:43:04.160831",
+            "type": "connected",
+            "details": {
+                "url": "ws://localhost:8000/api/v1/ws/signals?license_code=TEST_LICENSE_123"
+            }
+        }
+    ],
+    "license_valid": true,
+    "license_validation_error": null,
+    "current_pairs": []
+}
