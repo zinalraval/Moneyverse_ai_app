@@ -7,7 +7,10 @@ A real-time trading platform with license-based access, built with FastAPI and S
 - Real-time trading signals and price updates
 - License-based access control
 - WebSocket-based real-time communication
-- Modern, responsive dashboard
+- Modern, responsive dashboard with multi-language support and mobile mode
+- AI-powered chart analysis and trading assistant chatbot
+- News filtering with sentiment analysis and major economic event alerts
+- Backtesting capabilities with equity curve visualization
 - Docker-based deployment
 
 ## Prerequisites
@@ -198,4 +201,4 @@ streamlit run app.py
 - Fork the repo and create a feature branch.
 - Add tests for new features.
 - Run `pytest` and `locust` to verify stability and performance.
-- Submit a pull request with a clear description. 
+- Submit a pull request with a clear description.
